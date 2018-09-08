@@ -3,9 +3,8 @@
 #include <time.h>
 #include "laby.h"
 
-static enum wall_type {VERTICAL, HORIZONTAL, NO_WALL};
-
-static struct node 
+enum wall_type {VERTICAL, HORIZONTAL, NO_WALL};
+struct node 
 {
     struct point box_offset;
     enum wall_type wall;
@@ -16,4 +15,6 @@ static struct node
     int width;
     int height;
 };
+
+ 
 

@@ -5,6 +5,8 @@
 
 int main(void)
 {
+    
+    maze_gen(2,2);
 
     return (0);
 }
