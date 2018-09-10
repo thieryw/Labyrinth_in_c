@@ -5,8 +5,12 @@
 
 int main(void)
 {
+    struct node_t *tree;
     
-    maze_gen(2,2);
+    tree = maze_gen(30,30);
+    //print_tree(tree);
+    maze_svg(tree);
 
-    return (0);
+    return(0);
+
 }
