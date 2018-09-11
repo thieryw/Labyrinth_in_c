@@ -66,7 +66,7 @@ struct node_t *maze_gen(int W, int H)
 
 
 
-static void _maze_svg(struct node_t *t, FILE *fp)
+static void _maze_svg(struct node_t *t, FILE *fp, char str[])
 {
     if(t->wall == NO_WALL)
     {
@@ -74,38 +74,34 @@ static void _maze_svg(struct node_t *t, FILE *fp)
     }
     else if (t->wall == VERTICAL)
     {
-        fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n",
-                t->x + t->wall_offset, t->y, t->x + t->wall_offset, t->y + t->door_offset);
-        fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n",
-                t->x + t->wall_offset, t->y + t->door_offset + 1, t->x + t->wall_offset, t->y + t->height);
+        fprintf(fp, str, t->x + t->wall_offset, t->y, t->x + t->wall_offset, t->y + t->door_offset);
+        fprintf(fp, str, t->x + t->wall_offset, t->y + t->door_offset + 1, t->x + t->wall_offset, t->y + t->height);
     }
     else
     {
-        fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n",
-                t->x, t->y + t->wall_offset, t->x + t->door_offset, t->y + t->wall_offset);
-        fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n",
-                t->x + t->door_offset + 1, t->y + t->wall_offset, t->x + t->width, t->y + t->wall_offset);
+        fprintf(fp, str, t->x, t->y + t->wall_offset, t->x + t->door_offset, t->y + t->wall_offset);
+        fprintf(fp, str, t->x + t->door_offset + 1, t->y + t->wall_offset, t->x + t->width, t->y + t->wall_offset);
     }
 
-
-    _maze_svg(t->left_child, fp);
-    _maze_svg(t->right_child, fp);
+    _maze_svg(t->left_child, fp, str);
+    _maze_svg(t->right_child, fp, str);
 }
 
 void maze_svg(struct node_t *t)
 {
     FILE *fp = fopen("maze.svg", "w");
+    char str[] = "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n";
 
     fprintf(fp, "<svg width=\" %d\" height=\" %d\">\n", t->width, t->height);
     fclose(fp);
 
     fp = fopen("maze.svg", "a");
 
-    fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n", t->x + 1, t->y, t->x + t->width, t->y);
-    fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n", t->x, t->y, t->x, t->y + t->height);
-    fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n", t->x, t->y + t->height, t->x + t->width - 1, t->y + t->height);
-    fprintf(fp, "<line x1=\" %d\" y1=\" %d\" x2=\" %d\" y2=\" %d\" style=\"stroke:rgb(0,0,0);stroke-width:0.2\"/>\n", t->x + t->width, t->y, t->x + t->width, t->y + t->height);
+    fprintf(fp, str, t->x + 1, t->y, t->x + t->width, t->y);
+    fprintf(fp, str, t->x, t->y, t->x, t->y + t->height);
+    fprintf(fp, str, t->x, t->y + t->height, t->x + t->width - 1, t->y + t->height);
+    fprintf(fp, str, t->x + t->width, t->y, t->x + t->width, t->y + t->height);
 
-    _maze_svg(t, fp);
+    _maze_svg(t, fp, str);
     fclose(fp);
 }
