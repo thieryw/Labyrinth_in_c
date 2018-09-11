@@ -25,6 +25,9 @@ struct node_t
     int width;
     int height;
 } ;
+
 struct node_t *maze_gen(int W, int H);
-void maze_svg(struct node_t *t);
+void maze_svg(struct node_t *t, char file_name[]);
+void free_maze(struct node_t *t);
+
 #endif
