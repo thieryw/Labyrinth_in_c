@@ -12,7 +12,7 @@ valgrind: all
 	valgrind --leak-check=full bin/main test
 
 
-_OBJS = laby.o
+_OBJS = laby.o dll.o dll_point.o
 
 #OBJS = bin/laby.o
 OBJS = $(patsubst %,bin/%,$(_OBJS))

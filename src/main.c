@@ -5,7 +5,7 @@
 
 int main(void)
 {
-    struct node_t *tree;
+    struct node_t *maze;
     int width,height;
     char str[10];
     char file_name[14];
@@ -18,10 +18,20 @@ int main(void)
 
     
     
-    tree = maze_gen(width,height);
-    maze_svg(tree,file_name);
+    maze = maze_gen(width,height);
+    maze_svg(maze,file_name);
 
-    free_maze(tree);
+
+    solution_svg(file_name,maze);
+
+
+   
+
+
+
+
+
+
 
     return(0);
 

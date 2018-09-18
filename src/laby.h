@@ -1,11 +1,6 @@
-#ifndef FUNCTION_H
-#define FUNCTION_H
+#ifndef LABY_H
+#define LABY_H
 
-struct point
-{
-    int x;
-    int y;
-};
 
 enum wall_type
 {
@@ -26,8 +21,12 @@ struct node_t
     int height;
 } ;
 
-struct node_t *maze_gen(int W, int H);
-void maze_svg(struct node_t *t, char file_name[]);
-void free_maze(struct node_t *t);
+
+struct node_t *maze_gen(int w, int h);
+
+void maze_svg(struct node_t *tree, char file_name[]);
+
+void solution_svg(char file_name[],struct node_t *tree);
+
 
 #endif
